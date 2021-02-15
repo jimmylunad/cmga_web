@@ -594,7 +594,7 @@ section {
   display: flex;
 }
 
-.wrapperLeft button {
+.wrapperLeft button, .wrapperLeft a {
   height: 60px;
   padding: 16px;
   border-radius: 4px;
@@ -607,6 +607,7 @@ section {
   font-size: 12px;
   font-weight: bold;
   font-family: Roboto-Regular, sans-serif;
+  text-decoration: none;
 }
 
 .wrapperLeft__btnStatus {
@@ -832,7 +833,7 @@ section {
   display: flex;
 }
 
-.contentRight button {
+.contentRight button, .contentRight a {
   height: 60px;
   padding: 16px;
   border-radius: 4px;
@@ -845,6 +846,7 @@ section {
   font-size: 12px;
   font-weight: bold;
   font-family: Roboto-Regular, sans-serif;
+  text-decoration: none;
 }
 
 .contentRight__title {
