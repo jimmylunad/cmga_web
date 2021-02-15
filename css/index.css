@@ -13,6 +13,7 @@ section {
 	display: grid;
   margin: 0 auto;
   max-width: 1440px;
+  overflow: hidden;
 	grid-template-columns: repeat(12, 1fr);
 }
 
@@ -1223,7 +1224,7 @@ section {
   }
 
   .banner {
-    padding: 35px 24px 90px; 
+    padding: 75px 24px 90px; 
   }
 
   .banner__contentLeft {
