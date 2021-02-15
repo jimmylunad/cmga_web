@@ -241,22 +241,22 @@
             Si estas interesado y deseas información adicional déjanos tus 
             datos y nos pondremos en contacto inmediatamente contigo.
         </p>
-        <form>
+        <form id="formContactUs" novalidate>
           <div>
             <label>Nombre completo</label><br>
-            <input autocomplete="off" type="text" name="name">
+            <input autocomplete="off" type="text" id="name" name="name">
           </div>
           <div>
             <label>Correo electrónico</label><br>
-            <input autocomplete="off" type="email" name="email">
+            <input autocomplete="off" type="email" id="email" name="email">
           </div>
           <div>
             <label>Teléfono de contacto *</label><br>
-            <input autocomplete="off" type="number" name="telephone">
+            <input autocomplete="off" type="tel" id="telephone" name="telephone">
           </div>
           <div>
             <label>Mensaje</label><br>
-            <textarea autocomplete="off" type="text" name="message"></textarea>
+            <textarea autocomplete="off" type="text" id="message" name="message"></textarea>
           </div>
           <button type="submit" class="contactUs__btnSubmit">
             ENVIAR MENSAJE
@@ -288,6 +288,17 @@
           Diego Cespedes
         </li>
     </di>
+  </div>
+
+  <div id="loadingPage">
+    <div class="sk-chase">
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+      <div class="sk-chase-dot"></div>
+    </div>
   </div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

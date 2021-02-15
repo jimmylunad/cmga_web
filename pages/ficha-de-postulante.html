@@ -22,93 +22,103 @@
     <div class="container postulant">
       <div class="postulant__content">
         <h1>Ficha de Postulante</h1>
-        <form>
+        <form id="formPostulant" novalidate>
           <div class="formGrid">
             <h3>Datos Pesonales</h3>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Nombre y Apellidos</label><br>
-              <input autocomplete="off" type="text" name="names">
+              <input autocomplete="off" type="text" id="names" name="names">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Dirección</label><br>
-              <input autocomplete="off" type="text" name="address">
+              <input autocomplete="off" type="text" id="address" name="address">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Distrito</label><br>
-              <input autocomplete="off" type="text" name="district">
+              <input autocomplete="off" type="text" id="district" name="district">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Provincia</label><br>
-              <input autocomplete="off" type="text" name="province">
+              <input autocomplete="off" type="text" id="province" name="province">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Departamento</label><br>
-              <input autocomplete="off" type="text" name="department">
+              <input autocomplete="off" type="text" id="department" name="department">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>País</label><br>
-              <input autocomplete="off" type="text" name="country">
+              <input autocomplete="off" type="text" id="country" name="country">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Celular</label><br>
-              <input autocomplete="off" type="tel" name="telephone">
+              <input autocomplete="off" type="tel" id="telephone" name="telephone">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Doc. de identidad</label><br>
-              <input autocomplete="off" type="number" name="document">
+              <input autocomplete="off" type="text" id="document" name="document">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Correo electrónico</label><br>
-              <input autocomplete="off" type="email" name="email">
+              <input autocomplete="off" type="email" id="email" name="email">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Fecha de nacimiento</label><br>
-              <input autocomplete="off" type="text" name="dateBirth">
+              <input autocomplete="off" type="date" id="dateBirth" name="dateBirth">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Lugar de nacimiento</label><br>
-              <input autocomplete="off" type="text" name="placeBirth">
+              <input autocomplete="off" type="text" id="placeBirth" name="placeBirth">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Estado civil</label><br>
-              <input autocomplete="off" type="text" name="state">
+              <input autocomplete="off" type="text" id="state" name="state">
             </div>
 
             <h3>Estudios</h3>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Universidad y/o Instituto</label><br>
-              <input autocomplete="off" type="text" name="university">
+              <input autocomplete="off" type="text" id="university" name="university">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Grado académico - Título</label><br>
-              <input autocomplete="off" type="text" name="profession">
+              <input autocomplete="off" type="text" id="profession" name="profession">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Especialidad</label><br>
-              <input autocomplete="off" type="text" name="specialiy">
+              <input autocomplete="off" type="text" id="specialiy" name="specialiy">
             </div>
 
             <h3>Experiencia Laboral</h3>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Centro de labores actual</label><br>
-              <input autocomplete="off" type="text" name="currentJob">
+              <input autocomplete="off" type="text" id="currentJob" name="currentJob">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Área de Experiencia (02)</label><br>
-              <input autocomplete="off" type="text" name="experiencie">
+              <input autocomplete="off" type="text" id="experiencie" name="experiencie">
             </div>
 
             <h3>Otros</h3>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Socio de algún Club</label><br>
-              <input autocomplete="off" type="text" name="partner">
+              <input autocomplete="off" type="text" id="partner" name="partner">
             </div>
-            <div>
+            <div class="formGrid__inputWrapper">
               <label>Año que asistió por primera vez al estadio para ver a la U:</label><br>
-              <input autocomplete="off" type="text" name="yearAttendance">
+              <input autocomplete="off" type="text" id="yearAttendance" name="yearAttendance">
             </div>
           </div>
 
+          <div id="spinner">
+            <div class="sk-chase">
+              <div class="sk-chase-dot"></div>
+              <div class="sk-chase-dot"></div>
+              <div class="sk-chase-dot"></div>
+              <div class="sk-chase-dot"></div>
+              <div class="sk-chase-dot"></div>
+              <div class="sk-chase-dot"></div>
+            </div>
+          </div>
 
           <button type="submit" class="postulant__btnSubmit">
             ENVIAR FICHA
@@ -121,5 +131,7 @@
   <footer class="footer">
     COPYRIGHT CMGA 2020
   </footer>
+
+  <script src="../js/ficha-de-postulante.js"></script>
 </body>
 </html>

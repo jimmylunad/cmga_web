@@ -1,4 +1,5 @@
 /** Variables y Selectores */
+const loadingPage = document.querySelector('#loadingPage');
 const btnBurger = document.querySelector('.header__btnBurger');
 const navBar = document.querySelector('.navBar');
 const navVertical = document.querySelector('.header__navVertical');
@@ -7,12 +8,30 @@ const optionsNavBarVertical = document.querySelector('.header__navVertical');
 const allOptions = document.querySelectorAll('.option');
 const allSections = document.querySelectorAll('div[id*="__divider"]');
 const wrapperSlider = document.querySelector('.wrapper');
+const form = document.querySelector('#formContactUs');
+const allFields = form.querySelectorAll('input, textarea');
 const btnTeamRepresentative = document.querySelector('.wrapperLeft__btnTeam');
 const popupRepresentative = document.querySelector('.teamRepresentative');
 const popupIconCloseRepresentative = popupRepresentative.querySelector('.popUp__close');
+let formValues = {
+	name: '',
+	email: '',
+	telephone: '',
+	message: '',
+};
 
 /** Funciones */
 AOS.init();
+
+const setLoadingPage = (activate) => {
+	if (activate) {
+		loadingPage.style.display = 'flex';
+		document.body.style.overflowY = 'hidden';
+	} else {
+		loadingPage.style.display = 'none'
+		document.body.style.overflowY = 'auto';
+	}
+}
 
 const handleOpenMenu = () => {
 	const { classList: classListBtn } = btnBurger;
@@ -66,7 +85,7 @@ const handleOptionsActive = () => {
 	});
 };
 
-const handleDataImages = (() => {
+const handleDataImages = () => {
     let array;
     const windowWidth = window.innerWidth;
     const imgWidth = 80/3;
@@ -112,35 +131,139 @@ const handleDataImages = (() => {
 			});
 			wrapperSlider.appendChild(column);
 		})
-})();
+};
 
 const openClosePopupTeamRepresentative = () => {
 	const { classList } = popupRepresentative;
 	classList.toggle('teamRepresentative--active');
 }
 
+const removeMessageError = (nameField) => {
+  const field = [...allFields].filter((e) => e.id == nameField)[0];
+  const error = field.parentNode.querySelector('p.error');
+
+	if (error) {
+    field.classList.remove('error');
+    error.remove();
+  }
+};
+
+const setMessageError = (nameField, msg = "Este campo es requerido") => {
+  const mensajeError = document.createElement('p');
+	mensajeError.textContent = msg;
+	mensajeError.classList.add('error');
+
+  const field = [...allFields].filter((e) => e.id == nameField)[0];
+  const fieldParent = field.parentNode;
+  const error = fieldParent.querySelectorAll('p.error');
+
+	if (error.length === 0) {
+		fieldParent.appendChild(mensajeError);
+    field.classList.add('error');
+	}
+}
+
+const handleOnChange = (e) => {
+  const { name, value } = e.target;
+
+  formValues = {
+    ...formValues,
+    [name]: value,
+  };
+
+  if (value.length) { removeMessageError(name); }
+};
+
+const handleValidateForm = (e) => {
+  const { value, name: nameField, type } = e.target;
+  if (value.length > 0) {
+    if(type === 'email') {
+			if (!emailRegex.test(value)) {
+				setMessageError(nameField, 'Email inválido');
+			}
+		}
+  } else {
+    setMessageError(nameField);
+  }
+}
+
+const handleValidateSubmit = () => {
+  const isFieldEmpty = [...allFields].some((field) => field.value == '');
+  const isFormError = [...allFields].map((e) => e.parentNode.querySelector('.error')).some(error => error !== null);
+
+  if(isFieldEmpty || isFormError) {
+    const fields = [...allFields];
+		fields.forEach(e => { if( e.value == '' ) setMessageError(e.name); });
+    const firstField = fields.filter(e => e.value == '' || e.parentNode.querySelector('.error'))[0];
+    const firstFieldPosition = firstField.parentNode.getBoundingClientRect().top;
+    const documentTop = document.body.getBoundingClientRect().top;
+    const offset = firstFieldPosition - documentTop;
+    window.scroll(0, offset - 60);
+    return false;
+	}
+  return true;
+}
+
+const handleSubmit = (e) => {
+	e.preventDefault();
+
+  const isValid = handleValidateSubmit();
+
+  if (!isValid) return;
+
+	spinner.style.display = 'flex';
+	setTimeout(() => {
+    spinner.style.display = 'none';
+    form.reset();
+    // crear mensaje en insertar despues de spoinner
+    const messageSuccess = document.createElement('div');
+    messageSuccess.textContent = 'Registro se realizado con éxito';
+    messageSuccess.classList.add('success');
+    document.body.appendChild(messageSuccess);
+    setTimeout(() => {
+      messageSuccess.remove();
+    }, 3000);
+	}, 3000);
+};
+
 /** Eventos */
 const eventListeners = (() => {
-	/** Abrir y cerrar menú lateral */
-	btnBurger.addEventListener('click', handleOpenMenu);
+	document.addEventListener('DOMContentLoaded', () => {
+		window.scroll(0, 0);
+		setLoadingPage(true);
+		setTimeout(() => { setLoadingPage(false) }, 3000);
 
-	/** Hacer scroll a las secciones */
-	optionsNavBar.addEventListener('click', handleScrollToSection);
+		handleDataImages();
 
-	/** Hacer scroll a las secciones Nav Vertical */
-	optionsNavBarVertical.addEventListener('click', handleScrollToSection);
+		/** Abrir y cerrar menú lateral */
+		btnBurger.addEventListener('click', handleOpenMenu);
 
-	btnTeamRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
-	popupIconCloseRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
-	popupRepresentative.addEventListener('click', (e) => {
-		const { classList } = e.target;
-		if (classList.contains('teamRepresentative--active')) {
-			popupRepresentative.classList.remove('teamRepresentative--active');
-		}
-	});
+		/** Hacer scroll a las secciones */
+		optionsNavBar.addEventListener('click', handleScrollToSection);
 
-	window.addEventListener('scroll', () => {
-		handleMenuSticky();
-		handleOptionsActive();
-	});
+		/** Hacer scroll a las secciones Nav Vertical */
+		optionsNavBarVertical.addEventListener('click', handleScrollToSection);
+
+		btnTeamRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
+		popupIconCloseRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
+		popupRepresentative.addEventListener('click', (e) => {
+			const { classList } = e.target;
+			if (classList.contains('teamRepresentative--active')) {
+				popupRepresentative.classList.remove('teamRepresentative--active');
+			}
+		});
+
+		// campos del formulario
+    allFields.forEach((field) => {
+      field.addEventListener('blur', handleValidateForm);
+      field.addEventListener('input', handleOnChange);
+    });
+
+    form.addEventListener('submit', handleSubmit);
+
+		window.addEventListener('scroll', () => {
+			handleMenuSticky();
+			handleOptionsActive();
+		});
+	})
 })();
