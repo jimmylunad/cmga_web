@@ -7,6 +7,9 @@ const optionsNavBarVertical = document.querySelector('.header__navVertical');
 const allOptions = document.querySelectorAll('.option');
 const allSections = document.querySelectorAll('div[id*="__divider"]');
 const wrapperSlider = document.querySelector('.wrapper');
+const btnTeamRepresentative = document.querySelector('.wrapperLeft__btnTeam');
+const popupRepresentative = document.querySelector('.teamRepresentative');
+const popupIconCloseRepresentative = popupRepresentative.querySelector('.popUp__close');
 
 /** Funciones */
 AOS.init();
@@ -109,7 +112,12 @@ const handleDataImages = (() => {
 			});
 			wrapperSlider.appendChild(column);
 		})
-  })();
+})();
+
+const openClosePopupTeamRepresentative = () => {
+	const { classList } = popupRepresentative;
+	classList.toggle('teamRepresentative--active');
+}
 
 /** Eventos */
 const eventListeners = (() => {
@@ -121,6 +129,15 @@ const eventListeners = (() => {
 
 	/** Hacer scroll a las secciones Nav Vertical */
 	optionsNavBarVertical.addEventListener('click', handleScrollToSection);
+
+	btnTeamRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
+	popupIconCloseRepresentative.addEventListener('click', openClosePopupTeamRepresentative);
+	popupRepresentative.addEventListener('click', (e) => {
+		const { classList } = e.target;
+		if (classList.contains('teamRepresentative--active')) {
+			popupRepresentative.classList.remove('teamRepresentative--active');
+		}
+	});
 
 	window.addEventListener('scroll', () => {
 		handleMenuSticky();
