@@ -1,4 +1,5 @@
 /** Variables y Selectores */
+const API = 'https://api.acmga.org/v1';
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const loadingPage = document.querySelector('#loadingPage');
 const btnBurger = document.querySelector('.header__btnBurger');
@@ -15,9 +16,9 @@ const btnTeamRepresentative = document.querySelector('.wrapperLeft__btnTeam');
 const popupRepresentative = document.querySelector('.teamRepresentative');
 const popupIconCloseRepresentative = popupRepresentative.querySelector('.popUp__close');
 let formValues = {
-	name: '',
+	fullname: '',
 	email: '',
-	telephone: '',
+	phone: '',
 	message: '',
 };
 
@@ -205,33 +206,40 @@ const handleValidateSubmit = () => {
   return true;
 }
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
 	e.preventDefault();
-
   const isValid = handleValidateSubmit();
-
   if (!isValid) return;
-
 	spinner.style.display = 'flex';
+
+	const response = await fetch(`${API}/save_contact`, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formValues)
+  });
+  const content = await response.json();
+
+	spinner.style.display = 'none';
+	// form.reset();
+	// crear mensaje en insertar despues de spoinner
+	const messageSuccess = document.createElement('div');
+	messageSuccess.textContent = content.body.successMessage;
+	messageSuccess.classList.add('success');
+	document.body.appendChild(messageSuccess);
 	setTimeout(() => {
-    spinner.style.display = 'none';
-    form.reset();
-    // crear mensaje en insertar despues de spoinner
-    const messageSuccess = document.createElement('div');
-    messageSuccess.textContent = 'Registro se realizado con éxito';
-    messageSuccess.classList.add('success');
-    document.body.appendChild(messageSuccess);
-    setTimeout(() => {
-      messageSuccess.remove();
-    }, 3000);
-	}, 3000);
+		messageSuccess.remove();
+	}, 5000);
 };
 
 /** Eventos */
 const eventListeners = (() => {
+	setLoadingPage(true);
+
 	document.addEventListener('DOMContentLoaded', () => {
 		window.scroll(0, 0);
-		setLoadingPage(true);
 		setTimeout(() => { setLoadingPage(false) }, 3000);
 
 		handleDataImages();
