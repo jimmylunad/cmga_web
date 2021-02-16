@@ -223,7 +223,7 @@ const handleSubmit = async (e) => {
   const content = await response.json();
 
 	spinner.style.display = 'none';
-	// form.reset();
+	form.reset();
 	// crear mensaje en insertar despues de spoinner
 	const messageSuccess = document.createElement('div');
 	messageSuccess.textContent = content.body.successMessage;
