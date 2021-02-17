@@ -160,8 +160,12 @@ const openClosePopupTeamRepresentative = () => {
 	classList.toggle('teamRepresentative--active');
 }
 
-const takePartSelected = (e) => {
+const takePartSelected = async (e) => {
 	const { step } = e.target.dataset;
+
+	if (step == 2) {
+		return
+	}
 
 	tabsTakePart.forEach(function(el, i, a) {
 		if(step == i) {
@@ -169,7 +173,6 @@ const takePartSelected = (e) => {
 		} else {
 			el.className = el.className.replace(" active", "");
 		}
-
 	})
 }
 
@@ -354,30 +357,42 @@ const handleSubmitTakePart = async (e) => {
 	e.preventDefault();
   const isValid = handleValidateSubmitTakePart();
   if (!isValid) return;
-	spinner.style.display = 'flex';
+	loadingTakePart.style.display = 'flex';
+	let formData = new FormData();
 
-	console.log(objTakePart);
+	Object.keys(objTakePart).forEach((e) => {
+		if (e == 'file_deposit') {
+			formData.append('file_deposit', fileDeposit.files[0])
+		} else {
+			formData.append(e, objTakePart[e])
+		}
+	});
 
-	// const response = await fetch(`${API}/save_contact`, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   body: JSON.stringify(formValues)
-  // });
-  // const content = await response.json();
+	const response = await fetch(`${API}/save_postulant`, {
+    method: 'POST',
+    body: formData,
+  });
+  const content = await response.json();
 
-	// spinner.style.display = 'none';
-	// form.reset();
-	// // crear mensaje en insertar despues de spoinner
-	// const messageSuccess = document.createElement('div');
-	// messageSuccess.textContent = content.body.successMessage;
-	// messageSuccess.classList.add('success');
-	// document.body.appendChild(messageSuccess);
-	// setTimeout(() => {
-	// 	messageSuccess.remove();
-	// }, 5000);
+	tabsTakePart.forEach(function(el) {
+		el.className = el.className.replace(" active", "");
+	})
+
+	const form = [...allSections][3].getBoundingClientRect().top;
+	const documentTop = document.body.getBoundingClientRect().top;
+	const offset = form - documentTop;
+	window.scroll(0, offset + 100);
+
+	loadingTakePart.style.display = 'none';
+	formTakePart.reset();
+	// crear mensaje en insertar despues de spoinner
+	const messageSuccess = document.createElement('div');
+	messageSuccess.textContent = content.body.successMessage;
+	messageSuccess.classList.add('success');
+	document.body.appendChild(messageSuccess);
+	setTimeout(() => {
+		messageSuccess.remove();
+	}, 6000);
 };
 
 /** Eventos */
