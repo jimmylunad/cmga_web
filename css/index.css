@@ -1716,6 +1716,7 @@ p.error {
 
   .containerBar {
     padding: 20px 15px;
+    width: 100%;
   }
 
   .containerBar__textTop {
