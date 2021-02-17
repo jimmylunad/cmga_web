@@ -1103,7 +1103,8 @@ section {
 .contentRight {
   grid-column: span 9;
   display: flex;
-  align-self: center;
+  align-self: start;
+  padding-top: 50px;
   flex-direction: column;
   align-items: flex-end;
 }
