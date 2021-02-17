@@ -15,12 +15,12 @@ const allFields = form.querySelectorAll('input, textarea');
 const btnTeamRepresentative = document.querySelector('.wrapperLeft__btnTeam');
 const popupRepresentative = document.querySelector('.teamRepresentative');
 const popupIconCloseRepresentative = popupRepresentative.querySelector('.popUp__close');
+
+const loadingTakePart = document.querySelector('#spinner2');
 const formTakePart = document.querySelector('#formTakePart');
 const allTakePartFields = formTakePart.querySelectorAll('input');
-
 const tabsTakePart = document.querySelectorAll('.formSteps__content');
 const takePartButton = document.querySelectorAll('.formSteps__button');
-
 const fileDeposit = document.querySelector('#file_deposit');
 
 let objTakePart = {
@@ -235,18 +235,31 @@ const handleOnChange = (e) => {
 };
 
 const handleOnChangeTakePart = (e) => {
-  const { name, value } = e.target;
+	let emailValid;
+  const { name, value, type } = e.target;
 
   objTakePart = {
     ...objTakePart,
     [name]: value,
   };
 
-	document.querySelector('#btnStepOne').disabled = (!objTakePart.file_deposit || !objTakePart.operation_number);
-	
-	document.querySelector('#btnStepTwo').disabled = (!objTakePart.document_number || !objTakePart.names || !objTakePart.lastnames || !objTakePart.mobile_phone || !objTakePart.mail);
-
   if (value.length) { removeMessageErrorTakePart(name); }
+
+	if(type === 'email') {
+		if (!emailRegex.test(value)) {
+			setMessageErrorTakePart(name, 'Email inválido');
+		} else {
+			emailValid = true;
+			removeMessageErrorTakePart(name);
+		}
+	}
+
+	document.querySelector('#btnStepOne').disabled = (
+		!objTakePart.file_deposit || !objTakePart.operation_number
+	);
+	document.querySelector('#btnStepTwo').disabled = (
+		!objTakePart.document_number || !objTakePart.names || !objTakePart.lastnames || !objTakePart.mobile_phone || !objTakePart.mail || !emailValid
+	);
 };
 
 const handleValidateForm = (e) => {
