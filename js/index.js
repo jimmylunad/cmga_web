@@ -375,7 +375,13 @@ const handleSubmitTakePart = async (e) => {
   const content = await response.json();
 
 	tabsTakePart.forEach(function(el) {
-		el.className = el.className.replace(" active", "");
+		const { step } = el.dataset;
+		if (step) {
+			el.className = el.className.replace(" active", "");
+		} else {
+			el.classList.add('active');
+		}
+		el.className = el.className.replace(" tooltip", "")
 	})
 
 	const form = [...allSections][3].getBoundingClientRect().top;
