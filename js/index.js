@@ -15,6 +15,26 @@ const allFields = form.querySelectorAll('input, textarea');
 const btnTeamRepresentative = document.querySelector('.wrapperLeft__btnTeam');
 const popupRepresentative = document.querySelector('.teamRepresentative');
 const popupIconCloseRepresentative = popupRepresentative.querySelector('.popUp__close');
+const formTakePart = document.querySelector('#formTakePart');
+const allTakePartFields = formTakePart.querySelectorAll('input');
+
+const tabsTakePart = document.querySelectorAll('.formSteps__content');
+const takePartButton = document.querySelectorAll('.formSteps__button');
+
+const fileDeposit = document.querySelector('#file_deposit');
+
+let objTakePart = {
+	file_deposit: '',
+	operation_number: '',
+	document_number: '',
+	names: '',
+	lastnames: '',
+	mobile_phone: '',
+	mail: ''
+};
+
+let formDataTakePart = new FormData();
+
 let formValues = {
 	fullname: '',
 	email: '',
@@ -140,8 +160,31 @@ const openClosePopupTeamRepresentative = () => {
 	classList.toggle('teamRepresentative--active');
 }
 
+const takePartSelected = (e) => {
+	const { step } = e.target.dataset;
+
+	tabsTakePart.forEach(function(el, i, a) {
+		if(step == i) {
+			el.className += ' active';
+		} else {
+			el.className = el.className.replace(" active", "");
+		}
+
+	})
+}
+
 const removeMessageError = (nameField) => {
   const field = [...allFields].filter((e) => e.id == nameField)[0];
+  const error = field.parentNode.querySelector('p.error');
+
+	if (error) {
+    field.classList.remove('error');
+    error.remove();
+  }
+};
+
+const removeMessageErrorTakePart = (nameField) => {
+  const field = [...allTakePartFields].filter((e) => e.id == nameField)[0];
   const error = field.parentNode.querySelector('p.error');
 
 	if (error) {
@@ -165,6 +208,21 @@ const setMessageError = (nameField, msg = "Este campo es requerido") => {
 	}
 }
 
+const setMessageErrorTakePart = (nameField, msg = "Este campo es requerido") => {
+  const mensajeError = document.createElement('p');
+	mensajeError.textContent = msg;
+	mensajeError.classList.add('error');
+
+  const field = [...allTakePartFields].filter((e) => e.id == nameField)[0];
+  const fieldParent = field.parentNode;
+  const error = fieldParent.querySelectorAll('p.error');
+
+	if (error.length === 0) {
+		fieldParent.appendChild(mensajeError);
+    field.classList.add('error');
+	}
+}
+
 const handleOnChange = (e) => {
   const { name, value } = e.target;
 
@@ -174,6 +232,21 @@ const handleOnChange = (e) => {
   };
 
   if (value.length) { removeMessageError(name); }
+};
+
+const handleOnChangeTakePart = (e) => {
+  const { name, value } = e.target;
+
+  objTakePart = {
+    ...objTakePart,
+    [name]: value,
+  };
+
+	document.querySelector('#btnStepOne').disabled = (!objTakePart.file_deposit || !objTakePart.operation_number);
+	
+	document.querySelector('#btnStepTwo').disabled = (!objTakePart.document_number || !objTakePart.names || !objTakePart.lastnames || !objTakePart.mobile_phone || !objTakePart.mail);
+
+  if (value.length) { removeMessageErrorTakePart(name); }
 };
 
 const handleValidateForm = (e) => {
@@ -186,6 +259,19 @@ const handleValidateForm = (e) => {
 		}
   } else {
     setMessageError(nameField);
+  }
+}
+
+const handleValidateFormTakePart = (e) => {
+  const { value, name: nameField, type } = e.target;
+  if (value.length > 0) {
+    if(type === 'email') {
+			if (!emailRegex.test(value)) {
+				setMessageErrorTakePart(nameField, 'Email inválido');
+			}
+		}
+  } else {
+    setMessageErrorTakePart(nameField);
   }
 }
 
@@ -234,6 +320,53 @@ const handleSubmit = async (e) => {
 	}, 5000);
 };
 
+const handleValidateSubmitTakePart = () => {
+  const isFieldEmpty = [...allTakePartFields].some((field) => field.value == '');
+  const isFormError = [...allTakePartFields].map((e) => e.parentNode.querySelector('.error')).some(error => error !== null);
+
+  if(isFieldEmpty || isFormError) {
+    const fields = [...allTakePartFields];
+		fields.forEach(e => { if( e.value == '' ) setMessageError(e.name); });
+    const firstField = fields.filter(e => e.value == '' || e.parentNode.querySelector('.error'))[0];
+    const firstFieldPosition = firstField.parentNode.getBoundingClientRect().top;
+    const documentTop = document.body.getBoundingClientRect().top;
+    const offset = firstFieldPosition - documentTop;
+    window.scroll(0, offset - 60);
+    return false;
+	}
+  return true;
+}
+
+const handleSubmitTakePart = async (e) => {
+	e.preventDefault();
+  const isValid = handleValidateSubmitTakePart();
+  if (!isValid) return;
+	spinner.style.display = 'flex';
+
+	console.log(objTakePart);
+
+	// const response = await fetch(`${API}/save_contact`, {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(formValues)
+  // });
+  // const content = await response.json();
+
+	// spinner.style.display = 'none';
+	// form.reset();
+	// // crear mensaje en insertar despues de spoinner
+	// const messageSuccess = document.createElement('div');
+	// messageSuccess.textContent = content.body.successMessage;
+	// messageSuccess.classList.add('success');
+	// document.body.appendChild(messageSuccess);
+	// setTimeout(() => {
+	// 	messageSuccess.remove();
+	// }, 5000);
+};
+
 /** Eventos */
 const eventListeners = (() => {
 	setLoadingPage(true);
@@ -268,11 +401,36 @@ const eventListeners = (() => {
       field.addEventListener('input', handleOnChange);
     });
 
+		allTakePartFields.forEach((field) => {
+			field.addEventListener('blur', handleValidateFormTakePart);
+			field.addEventListener('input', handleOnChangeTakePart);
+		})
+
     form.addEventListener('submit', handleSubmit);
+    
+		formTakePart.addEventListener('submit', handleSubmitTakePart);
 
 		window.addEventListener('scroll', () => {
 			handleMenuSticky();
 			handleOptionsActive();
 		});
+		
+		/** click en el tab */
+		takePartButton.forEach((field) => {
+			field.addEventListener('click', takePartSelected);
+		})
+
+		/** validate ficha */
+		fileDeposit.addEventListener('change', (e) => {
+			if(e.target.files.length) {
+				formDataTakePart.append('file_deposit',e.target.files[0], e.target.files[0].name);
+				document.querySelector('.filesuccess').innerHTML = e.target.files[0].name;
+
+				objTakePart = {
+					...objTakePart,
+					file_deposit: e.target.files[0].name
+				}
+			}
+		})
 	})
 })();

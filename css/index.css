@@ -103,6 +103,68 @@ section {
   } 
 }
 
+#spinner2 {
+  display: none;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.sk2-chase {
+  width: 40px !important;
+  height: 40px !important;
+  position: relative !important;
+  animation: sk-chase 2.5s infinite linear both;
+}
+
+.sk2-chase-dot {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 0 !important;
+  position: absolute !important;
+  left: 0;
+  top: 0; 
+  animation: sk2-chase-dot 2.0s infinite ease-in-out both; 
+}
+
+.sk2-chase-dot:before {
+  content: '';
+  display: block;
+  width: 25%;
+  height: 25%;
+  background-color: var(--white);
+  border-radius: 100%;
+  animation: sk2-chase-dot-before 2.0s infinite ease-in-out both; 
+}
+
+.sk2-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+.sk2-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+.sk2-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+.sk2-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+.sk2-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+.sk2-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+.sk2-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+.sk2-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+.sk2-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+.sk2-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+.sk2-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+.sk2-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+
+@keyframes sk2-chase {
+  100% { transform: rotate(360deg); } 
+}
+
+@keyframes sk2-chase-dot {
+  80%, 100% { transform: rotate(360deg); } 
+}
+
+@keyframes sk2-chase-dot-before {
+  50% {
+    transform: scale(0.4); 
+  } 100%, 0% {
+    transform: scale(1.0); 
+  } 
+}
+
 /*Estilos del header*/
 .navBar {
   top: 0;
@@ -906,7 +968,7 @@ section {
 /*Estilos de la seccion "Como Participar"*/
 
 #takePart {
-  background-color: var(--smoothWhite);
+  background-color: var(--white);
 }
 
 .takePart {
@@ -926,9 +988,7 @@ section {
   grid-column: 4 / 13;
   border: 2px dashed var(--beige);
   border-radius: 10px;
-  padding-top: 48px;
-  padding-bottom: 48px;
-  grid-template-columns: repeat(12, 1fr);
+  /* grid-template-columns: repeat(12, 1fr); */
 }
 
 .outline__paragraph {
@@ -1027,7 +1087,6 @@ section {
   font-size: 16px;
   line-height: 24px;
   text-align: right;
-  padding-bottom: 46px;
   font-family: Spartan-Regular, sans-serif;
 }
 
@@ -1325,6 +1384,210 @@ p.error {
   font-size: 13px;
   margin-top: 22px;
   font-family: Spartan-Medium, sans-serif;
+}
+
+.formSteps {
+  width: 100%;
+  padding: 20px;
+}
+
+.formSteps > ul {
+  list-style: none;
+  font-family: 'Spartan-Regular', sans-serif;
+  font-size: 16px;
+}
+
+.formSteps > ul > li {
+  box-shadow: 0 1px 3px rgba(180,180,180,0.12), 0 1px 2px rgba(180,180,180,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  margin-bottom: 10px;
+  border-radius: 7px;
+}
+
+.formSteps > ul > li:last-child {
+  margin-bottom: 0;
+}
+
+.formSteps > ul > li:hover {
+  box-shadow: 0 3px 14px rgba(180, 180, 180, 0.25), 0 4px 5px rgba(180, 180, 180, 0.21);
+}
+
+.formSteps__content .formSteps__info {
+  display: none;
+}
+
+.formSteps__content.active .formSteps__info {
+  display: block !important;
+}
+
+.formSteps__tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.formSteps__tab .title {
+  max-width: calc(100% - 40px);
+  display: flex;
+  margin-top: 5px;
+}
+
+.formSteps__tab .title span {
+  width: 20px;
+  margin-right: 5px;
+}
+
+.formSteps__tab .status {
+  width: 22px;
+  height: 22px;
+  border-radius: 22px;
+  /* border: 1px solid var(--beige); */
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.formSteps__info {
+  padding: 15px;
+}
+
+.formSteps__info .account {
+  display: flex;
+  align-items: center;
+  padding: 25px 0;
+  border-bottom: 1px solid var(--beige);
+  margin-bottom: 25px;
+}
+
+.formSteps__info .account .account__logo {
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  margin-right: 15px;
+}
+
+.formSteps__info .account .account__logo img {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.formSteps .active .formSteps__tab .status {
+  background-color: var(--gold);
+}
+
+.formSteps__control {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.formSteps__control p.error{
+  bottom: -20px;
+}
+
+.formSteps__control label {
+  color: var(--gold);
+  font-size: 16px;
+  line-height: 18px;
+  font-family: 'Spartan-Light', sans-serif;
+}
+
+.formSteps__control input[type=text], .formSteps__control input[type=tel], .formSteps__control input[type=email] {
+  height: 48px;
+  width: 100%;
+  padding: 0 10px;
+  background-color: #F7F7F7;
+  border-radius: 10px;
+  border: 1px solid #DBDCE8;
+  margin-top: 14px;
+  font-family: 'Spartan-Regular', sans-serif;
+}
+
+.formSteps__control input[type=text]:focus,
+.formSteps__control input[type=tel]:focus,
+.formSteps__control input[type=email]:focus {
+  border: transparent;
+  outline: none;
+  box-shadow: 0px 0px 0px 2px var(--gold);
+}
+
+.formSteps__file {
+  position: relative;
+}
+
+.formSteps__file:hover .file__placeholder {
+  background: rgba(255,255,255,0.1);
+}
+
+.formSteps__file input[type=file] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.formSteps__file input[type=file]:focus {
+  border: transparent;
+  outline: none;
+  box-shadow: 0px 0px 0px 2px var(--gold);
+}
+
+.formSteps__file input[type=file]:focus + .file__placeholder {
+  outline: 2px solid rgba(255,255,255,0.5);
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.formSteps__file input[type=file]:valid + .file__placeholder .filesuccess {
+  display: inline-block;
+}
+
+.formSteps__file input[type=file]:valid + .file__placeholder .filedefault {
+  display: none;
+}
+
+.formSteps__file .file__placeholder {
+  width: 100%;
+  padding: 12px 10px;
+  background-color: #F7F7F7;
+  border: 2px dashed #DBDCE8;
+  border-radius: 10px;
+  text-align: left;
+  transition: background 0.3s ease-in-out;
+  margin-top: 14px;
+}
+
+.formSteps__file .file__placeholder .filesuccess {
+  display: none;
+}
+
+.formSteps__button {
+  color: var(--white);
+  display: block;
+  width: 244px;
+  height: 50px;
+  background-color: var(--gold);
+  border: transparent;
+  border-radius: 8px;
+  padding: 18px 0;
+  font-size: 13px;
+  font-family: 'Spartan-Medium', sans-serif;
+  margin: 0 auto;
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.formSteps__button:hover {
+  background-color: var(--secondBlack);
+}
+
+.formSteps__button:focus {
+  outline: none;
+}
+
+.formSteps__button[disabled] {
+  opacity: .5;
 }
 
 .footer {

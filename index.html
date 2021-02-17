@@ -190,24 +190,118 @@
   <section id="takePart">
     <div id="takePart__divider" class="divider"></div>
     <div class="container takePart">
+
       <div class="takePart__contentLeft">
         <div class="outline">
-          <div class="outline__paragraph">
-            <p>
-              Aporte de S/1,000 para incorporarte como asociado, deberas enviar los archivos descargados luego de llenarlos más el voucher de pago a la siguiente dirección <strong>asociacioncmga@gmail.com</strong>
-            </p>
-            <div class="outline__logoBcp"></div>
-          </div>
-          <div class="outline__account">
-            <p>
-              194-99756662-0-02
-            </p>
-            <p>
-              CI: 00219419975666200293
-            </p>
-          </div>
+          <form id="formTakePart" class="formSteps">
+            <ul>
+              <li id="formTakePart1" class="formSteps__content active">
+                <div class="formSteps__tab">
+                  <div class="title">
+                    <span>1.</span>
+                    <p>Aporte de S/1,000 a ACMGA</p>
+                  </div>
+                  <div class="status"></div>
+                </div>
+                <div class="formSteps__info">
+                  <p>Para incorporarte como asociado deberás de realizar el aporte en la siguiente cuenta:</p>
+                  <div class="account">
+                    <figure class="account__logo">
+                      <img src="src/svg/bcp.svg" alt="bcp">
+                    </figure>
+                    <div class="account__numbers">
+                      <p>194-99756662-0-02</p>
+                      <p>CI: 00219419975666200293</p>
+                    </div>
+                  </div>
+                  <div class="formSteps__form">
+                    <div class="formSteps__control">
+                      <label for="">Adjuntar foto del deposito</label>
+                      <br>
+                      <div class="formSteps__file">
+                        <input type="file" name="file_deposit" id="file_deposit" required="required" multiple="multiple"/>
+                        <div class="file__placeholder">
+                          <div class="filesuccess">
+                            Se adjunto archivo
+                          </div>
+                          <div class="filedefault">
+                            Seleccione una imagen...
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="formSteps__control">
+                      <label for="">Número de operación</label>
+                      <br>
+                      <input type="text" id="operation_number" name="operation_number">
+                    </div>
+                    <button type="button" id="btnStepOne" class="formSteps__button" data-step="1" disabled>SIGUIENTE</button>
+                  </div>
+                </div>
+              </li>
+              <li id="formTakePart2" class="formSteps__content">
+                <div class="formSteps__tab">
+                  <div class="title">
+                    <span>2.</span>
+                    <p>LLenar el formulario de inscripción.</p>
+                  </div>
+                  <div class="status"></div>
+                </div>
+                <div class="formSteps__info">
+                  <div class="formSteps__form">
+                    <div class="formSteps__control">
+                      <label for="">DNI</label>
+                      <br>
+                      <input autocomplete="off" type="text" id="document_number" name="document_number">
+                    </div>
+                    <div class="formSteps__control">
+                      <label for="">Nombres</label>
+                      <br>
+                      <input autocomplete="off" type="text" id="names" name="names">
+                    </div>
+                    <div class="formSteps__control">
+                      <label for="">Apellidos</label>
+                      <br>
+                      <input autocomplete="off" type="text" id="lastnames" name="lastnames">
+                    </div>
+                    <div class="formSteps__control">
+                      <label for="">Celular</label>
+                      <br>
+                      <input autocomplete="off" type="tel" id="mobile_phone" name="mobile_phone">
+                    </div>
+                    <div class="formSteps__control">
+                      <label for="">Correo</label>
+                      <br>
+                      <input autocomplete="off" type="email" id="mail" name="mail">
+                    </div>
+                    <div id="spinner2">
+                      <div class="sk2-chase">
+                        <div class="sk2-chase-dot"></div>
+                        <div class="sk2-chase-dot"></div>
+                        <div class="sk2-chase-dot"></div>
+                        <div class="sk2-chase-dot"></div>
+                        <div class="sk2-chase-dot"></div>
+                        <div class="sk2-chase-dot"></div>
+                      </div>
+                    </div>
+                    <button type="submit" id="btnStepTwo" class="formSteps__button" data-step="2" disabled>ENVIAR</button>
+                  </div>
+                </div>
+              </li>
+              <li id="formTakePart3" class="formSteps__content">
+                <div class="formSteps__tab">
+                  <div class="title">
+                    <span>3.</span>
+                    <p>Completar la ficha de asociado y declaración jurada.</p>
+                  </div>
+                  <div class="status"></div>
+                </div>
+              </li>
+            </ul>
+          </form>
         </div>
       </div>
+
       <div class="takePart__contentRight">
         <div class="contentRight">
           <p data-aos="fade-left" data-aos-anchor-placement="top-center" class="contentRight__title">
@@ -215,19 +309,11 @@
             PARTICIPAR
           </p>
           <p class="contentRight__paragraph">
-            Compromiso <strong>desinteresado</strong> con la Asociación soportado en el amor 
-            a nuestros colores y la historia de la “U”.
+            Compromiso <strong>desinteresado</strong> con la Asociación soportado en el amor a nuestros colores y la historia de la “U”.
           </p>
-          <div>
-            <a href="pages/ficha-de-postulante.html" target="_blank" class="contentRight__btn">
-              FICHA DE<br/>POSTULANTE
-            </a>
-            <a href="assets/modelo_de_declaracion_jurada_ACMGA.docx" class="contentRight__btnDeclaration" download>
-              DECLARACIÓN<br/>JURADA ACMGA
-            </a>
-          </div>
         </div>
       </div>
+
     </div>
   </section>
 
