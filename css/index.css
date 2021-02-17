@@ -749,6 +749,30 @@ section {
   grid-template-columns: repeat(12, 1fr);
 }
 
+.wrapperLeft .transparency__team {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.wrapperLeft .transparency__team h4 {
+  color: var(--gold);
+  font-family: Spartan-Bold, sans-serif;
+}
+
+.wrapperLeft .transparency__team ul {
+  padding-left: 18px;
+  margin-top: 9px;
+}
+
+.wrapperLeft .transparency__team ul li {
+  margin-bottom: 5px;
+}
+
+.wrapperLeft .transparency__team ul li h5 span {
+  color: var(--gold);
+  font-family: Spartan-Bold, sans-serif;
+}
+
 .wrapperLeft {
   grid-column: 4 / 13;
 }
@@ -756,7 +780,7 @@ section {
 .wrapperLeft > p {
   color: var(--wine);
   font-size: 42px;
-  padding-bottom: 41px;
+  padding-bottom: 15px;
   font-family: Spartan-Bold, sans-serif;
 }
 
@@ -805,10 +829,10 @@ section {
 
 .wrapperLeft__btnTeam::before {
   width: 32px;
-  height: 40px;
+  height: 27px;
   content: "";
   margin-right: 9px;
-  background: url('../src/svg/peoples.svg');
+  background: url('../src/svg/file.svg');
   background-repeat: no-repeat;
   background-size: contain;
 }
@@ -919,8 +943,45 @@ section {
   color: var(--gold);
 }
 
-.teamRepresentative__popUp > li {
+
+.teamRepresentative__popUp > ul {
+  list-style: none;
+}
+
+.teamRepresentative__popUp > ul > li {
   padding-bottom: 15px;
+}
+
+.teamRepresentative__popUp > ul > li > a {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 8px rgba(180,180,180,0.12), 0 3px 8px rgba(180,180,180,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  border-radius: 7px;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: var(--secondBlack);
+  position: relative;
+}
+
+.teamRepresentative__popUp > ul > li > a:after {
+  content: '';
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  width: 20px;
+  height: 15px;
+  transform: translateY(-50%);
+  background: url('../src/svg/eye.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.teamRepresentative__popUp > ul > li > a:hover {
+  background-color: var(--secondBlack);
+  color: var(--white);
 }
 
 @keyframes moveSlideshow {
